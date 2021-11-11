@@ -42,5 +42,8 @@ These first steps make sure the controller can talk to the target and execute co
 3. Run the playbook with `ansible-playbook --extra-vars "target=YOUR_TARGET_NAME_OR_IP admin_user=YOUR_ADMIN_USER mail_adress_1password=YOUR_ONEPASSWORD_MAIL_ADRESS" playbook.yml`  
 4. To run the playbook locally, you can simply exchange the target in `extra_vars` with `localhost` and setting the `--connection=local` flag.
 
+### Things I could not (yet) automate
+- The installation of [NTFS-For-Mac](https://www.paragon-software.com/home/ntfs-mac/) and [extFS-For-Mac](https://www.paragon-software.com/home/extfs-mac/)
+
 [homebrew]: http://brew.sh
 [cask]: https://github.com/phinze/homebrew-cask
