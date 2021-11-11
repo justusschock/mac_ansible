@@ -1,0 +1,23 @@
+---
+# playbook for creating and configuring new users
+- hosts: '{{ target }}'
+  user: '{{ admin_user }}'
+  become: yes
+
+  roles:
+    - role: elliotweiser.osx-command-line-tools
+    - role: geerlingguy.mac.homebrew
+      tags: ['homebrew']
+    - role: homebrew
+      become: no
+    - role: finder
+    - role: dock
+    - role: vscode
+    - role: global-prefs
+
+  tasks:
+    - name: Setup Dotfiles
+      shell: eval `op signin my.1password.com {{ mail_adress_1password }}` && sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply justusschock
+
+    - name: Install Neovim Plugins
+      shell: nvim +PlugInstall +"CocInstall coc-dot-complete coc-json coc-markdownlint coc-prettier coc-pyright coc-sh coc-texlab coc-translator coc-yaml" +qall

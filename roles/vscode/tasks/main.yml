@@ -1,0 +1,6 @@
+---
+
+- name: Install Visual Studio Code extensions
+  command: code --install-extension {{ item }}
+  with_items: '{{ vscode_extensions }}'
+  ignore_errors: yes

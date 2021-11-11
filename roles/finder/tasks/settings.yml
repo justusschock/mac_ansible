@@ -1,0 +1,44 @@
+---
+
+- name: 'Finder: Show status bar'
+  shell: defaults write {{ user_lib_prefs }}/com.apple.finder ShowStatusBar -bool true
+
+- name: 'Finder: New Window Target'
+  shell: 'defaults write {{ user_lib_prefs }}/com.apple.finder NewWindowTarget -string PfHm'
+
+- name: 'Finder: New Window Target Path'
+  shell: 'defaults write {{ user_lib_prefs }}/com.apple.finder NewWindowTargetPath -string file://{{ user_home }}/'
+
+- name: 'Finder: Enable Path Bar'
+  shell: 'defaults write {{ user_lib_prefs }}/com.apple.finder ShowPathbar -bool true'
+
+- name: 'Finder: Hide tags in sidebar'
+  shell: 'defaults write {{ user_lib_prefs }}/com.apple.finder SidebarTagsSctionDisclosedState -bool false'
+
+- name: 'Finder: Stop writing .DS_Store files on servers'
+  shell: defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+- name: 'Finder: Stop writing .DS_Store files on USB volumes'
+  shell: defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+- name: 'Finder: Hide Back to My Mac and Bonjour Computers in Finder sidebar'
+  shell: 'defaults write {{ user_lib_prefs }}/com.apple.sidebarlists.plist networkbrowser "<dict><key>Controller</key><string>CustomListItems</string><key>CustomListItems</key><array/><key>CustomListProperties</key><dict><key>com.apple.NetworkBrowser.backToMyMacEnabled</key><false/><key>com.apple.NetworkBrowser.connectedEnabled</key><true/><key>com.apple.NetworkBrowser.bonjourEnabled</key><false/></dict></dict>"'
+
+# Helpful: http://derflounder.wordpress.com/2014/10/16/disabling-the-icloud-and-diagnostics-pop-up-windows-in-yosemite/
+- shell: sw_vers -productVersion
+  register: os_productVersion
+
+- shell: sw_vers -buildVersion
+  register: os_buildVersion
+
+- name: 'Finder: Disable Gesture movie'
+  shell: defaults write {{ user_lib_prefs }}/com.apple.SetupAssistant GestureMovieSeen none
+
+- name: Repair permissions
+  file:
+    path={{ user_lib_prefs }}
+    owner={{ username }}
+    group=staff
+    recurse=yes
+  notify:
+    - restart finder

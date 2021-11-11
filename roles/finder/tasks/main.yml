@@ -1,0 +1,5 @@
+---
+
+- import_tasks: settings.yml
+- import_tasks: screensaver.yml
+- import_tasks: quicklook.yml
