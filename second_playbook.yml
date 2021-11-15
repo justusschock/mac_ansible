@@ -35,6 +35,9 @@
     - name: Install Oh My ZSH
       become: no
       shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      
+    - name: Install Spaceship theme
+      shell: git clone https://github.com/spaceship-prompt/spaceship-prompt.git "/Users/{{ admin_user }}/.oh-my-zsh/custom/themes/spaceship-prompt" --depth=1
 
     # TODO: Check this!
     - name: Setup Dotfiles
