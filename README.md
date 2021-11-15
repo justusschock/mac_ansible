@@ -1,4 +1,4 @@
-# IOP’s Ansible Playbooks
+# Ansible Playbooks
 
 This evolving set of Ansible playbooks automates Mac user creation and designer workstation maintenance at [Ideas On Purpose][iop]. While these are ultimately very specific to our needs, there's likely something here which will be helpful in other situations.
 
