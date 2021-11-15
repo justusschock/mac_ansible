@@ -1,0 +1,63 @@
+---
+# playbook for creating and configuring new users
+- name: First Setup
+  hosts: '{{ target }}'
+  user: '{{ admin_user }}'
+  become: yes
+
+  vars_files:
+    - /variables.yml
+    
+      
+  vars_prompt:
+    - name: ansible_become_password
+      prompt: Root Password on Target Machine?
+
+    - name: mas_email
+      prompt: AppleID Mail?
+      private: no
+
+    - name: mas_password
+      prompt: AppleID Password?
+    
+  pre_tasks:
+    - name: Install rosetta2
+      shell: /usr/sbin/softwareupdate --install-rosetta --agree-to-license
+
+    - name: Check if Homebrew is already installed
+      stat:
+        path: /opt/homebrew
+      register: brew_not_present
+      become: no
+
+  roles:
+    - role: elliotweiser.osx-command-line-tools
+    - role: geerlingguy.mac.homebrew
+      tags: ['homebrew']
+      become: no
+    - role: geerlingguy.mac.mas
+      become: no
+      tags: ['mas']
+    # - role: homebrew
+    #   become: no
+    - role: finder
+      tags: ['preferences']
+    - role: geerlingguy.mac.dock
+      tags: ['preferences']
+    - role: global-prefs
+      tags: ['preferences']
+
+  tasks:
+    - name: Add Brew to Zprofile
+      #when: not brew_not_present.stat.exists
+      shell: echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/{{ admin_user }}/.zprofile && eval "$(/opt/homebrew/bin/brew shellenv)"
+      tags: ['vscode']
+    
+    - name: Install Visual Studio Code extensions
+      shell: /opt/homebrew/bin/code --install-extension {{ item }}
+      with_items: '{{ vscode_extensions }}'
+      ignore_errors: yes
+      tags: ['vscode']
+
+    - name: Unconditionally reboot the machine with all defaults
+      reboot:

@@ -1,8 +1,0 @@
----
-- name: Install applications
-  environment:
-    PATH: /usr/local/bin:{{ ansible_env["PATH"] }}
-  shell: brew bundle install -f Brewfile 
-  become: no
-  notify:
-    - restart dock

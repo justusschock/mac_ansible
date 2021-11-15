@@ -1,5 +1,4 @@
 ---
-
 - name: 'Finder: Show status bar'
   shell: defaults write {{ user_lib_prefs }}/com.apple.finder ShowStatusBar -bool true
 

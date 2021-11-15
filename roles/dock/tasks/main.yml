@@ -1,5 +1,0 @@
----
-
-- import_tasks: reset.yml
-- import_tasks: apps.yml
-- import_tasks: settings.yml

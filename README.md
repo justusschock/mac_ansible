@@ -39,11 +39,10 @@ These first steps make sure the controller can talk to the target and execute co
 1.  Copy your SSH public key to the target:  
     `ssh-copy-id justusschock@target-mac.local` If you don't want to use ssh-keys, make sure to pass the `--ask-pass` parameter in 3.
 2. Update the `hosts` file
-3. Run the playbook with `ansible-playbook --extra-vars "target=YOUR_TARGET_NAME_OR_IP admin_user=YOUR_ADMIN_USER mail_adress_1password=YOUR_ONEPASSWORD_MAIL_ADRESS" playbook.yml`  
-4. To run the playbook locally, you can simply exchange the target in `extra_vars` with `localhost` and setting the `--connection=local` flag.
-
-### Things I could not (yet) automate
-- The installation of [NTFS-For-Mac](https://www.paragon-software.com/home/ntfs-mac/) and [extFS-For-Mac](https://www.paragon-software.com/home/extfs-mac/)
+3. Run the first playbook with `ansible-playbook --extra-vars "target=YOUR_TARGET_NAME_OR_IP admin_user=YOUR_ADMIN_USER -i YOU_TARGET_NAME_OR_IP first_playbook.yml`  
+4. Login to onepassword cli with `op signin YOUR_DOMAIN YOUR_MAIL`
+5. Run the second playbook with `ansible-playbook --extra-vars "target=YOUR_TARGET_NAME_OR_IP admin_user=YOUR_ADMIN_USER -i YOU_TARGET_NAME_OR_IP second_playbook.yml`  
+6. To run the playbooks locally, you can simply exchange the target in `extra_vars` with `localhost` and setting the `--connection=local` flag.
 
 [homebrew]: http://brew.sh
 [cask]: https://github.com/phinze/homebrew-cask
