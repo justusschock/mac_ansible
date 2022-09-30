@@ -38,6 +38,9 @@ fi
 # Init and apply dotfiles
 chezmoi init --apply justusschock
 
+# Install rosetta for all the intel stuff
+sudo softwareupdate --install-rosetta
+
 # install all applications
 brew bundle --file=${HOME}/.config/Brewfile
 
