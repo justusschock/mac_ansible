@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Install homebrew
-if [ ! -d /opt/hommebrew ]
+if [ ! -d /opt/homebrew ]
 then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
