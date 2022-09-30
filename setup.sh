@@ -19,6 +19,7 @@ fi
 
 # install oh my zsh passion theme
 if [ ! -d ${HOME}/.oh-my-zsh/custom/themes/passion-theme ]
+then 
   # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
   git clone -c core.autocrlf=input --depth=1 https://github.com/justusschock/ohmyzsh-theme-passion.git ${HOME}/.oh-my-zsh/custom/themes/passion-theme
 fi
