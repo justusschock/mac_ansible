@@ -37,6 +37,7 @@ fi
 
 # Init and apply dotfiles
 chezmoi init --apply justusschock
+chezmoi update
 
 # Install rosetta for all the intel stuff
 sudo softwareupdate --install-rosetta
@@ -45,7 +46,10 @@ sudo softwareupdate --install-rosetta
 brew bundle --file=${HOME}/.config/Brewfile
 
 # initialize packer before nvim setup
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim
+if [ ! -d ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim ]
+then
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim
+fi
 # nvim setup
 nvim -c q
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
