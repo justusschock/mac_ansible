@@ -1,0 +1,18 @@
+- name: Check Developer
+  stat: 
+    path: '~{{ admin_user }}/Developer'
+  register: developer_dir
+
+- name: Check Temp
+  stat:
+    path: '~{{ admin_user }}/Temp'
+  register: temp_dir
+    
+- name: Create Developer
+  command: 'mkdir ~{{ admin_user }}/Developer'
+  when: not developer_dir.stat.exists
+
+- name: Create Temp
+  command: 'mkdir ~{{ admin_user }}/Temp && mkdir ~{{ admin_user }}/Temp/Daily && mkdir ~{{ admin_user }}/Temp/Weekly'
+  when: not temp_dir.stat.exists
+

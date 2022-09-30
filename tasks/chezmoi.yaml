@@ -1,0 +1,2 @@
+- name: "Add dotfiles with chezmoi"
+  command: "{{ homebrew_brew_bin_path }}/chezmoi init --apply {{ chezmoi_user }}"

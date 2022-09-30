@@ -1,0 +1,5 @@
+- name: Install Nvim Packer Packages
+  command: nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+- name: Install Language Servers
+  command: nvim --headless -c 'LspInstall --sync rome, cmake, julials, bashls, ltex, texlab, pyright, ccls, dockerls, jsonls, remark_ls' -c q

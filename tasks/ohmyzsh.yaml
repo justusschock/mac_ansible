@@ -1,0 +1,36 @@
+---
+
+- name: oh my zsh install
+  include_role: 
+    name: gantsign.oh-my-zsh
+  vars:
+    users:
+      - username: '{{ admin_user }}'
+
+- name: Check custom themes directory 
+  stat: 
+    path: '~{{ admin_user }}/.oh-my-zsh/custom/themes/passion-theme'
+  register: custom_themes_dir
+
+- name: clone passion theme
+  become: yes
+  become_user: '{{ admin_user }}'
+  # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
+  command: 'git clone -c core.autocrlf=input --depth=1 https://github.com/justusschock/ohmyzsh-theme-passion.git ~{{ admin_user }}/.oh-my-zsh/custom/themes/passion-theme'
+  when: not custom_themes_dir.stat.exists
+
+- name: create symlink passion-theme
+  become: yes
+  become_user: '{{ admin_user }}'
+  command: 'ln -sfF ~{{ admin_user }}/.oh-my-zsh/custom/themes/passion-theme/passion.zsh-theme ~/.oh-my-zsh/custom/themes/passion.zsh-theme'
+
+- name: set permissions of oh-my-zsh for users
+  become: yes
+  file:
+    path: '~{{ admin_user }}/.oh-my-zsh'
+    # Prevent the cloned repository from having insecure permissions. Failing to do
+    # so causes compinit() calls to fail with "command not found: compdef" errors
+    # for users with insecure umasks (e.g., "002", allowing group writability).
+    mode: 'go-w'
+    recurse: yes
+
