@@ -44,7 +44,10 @@ sudo softwareupdate --install-rosetta
 # install all applications
 brew bundle --file=${HOME}/.config/Brewfile
 
-# setup nvim
+# initialize packer before nvim setup
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim
+# nvim setup
+nvim -c q
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless -c 'LspInstall --sync rome, cmake, julials, bashls, ltex, texlab, pyright, ccls, dockerls, jsonls, remark_ls' -c q
 
