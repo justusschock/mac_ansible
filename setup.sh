@@ -4,8 +4,9 @@
 if [ ! -d /opt/hommebrew ]
 then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  brew=/opt/homebrew/bin/brew
 fi
+
+export PATH=/opt/homebrew/bin:PATH
 
 # install chezmoi
 brew install chezmoi
