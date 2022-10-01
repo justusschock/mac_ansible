@@ -55,6 +55,6 @@ fi
 # nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 # nvim --headless -c 'LspInstall --sync rome, cmake, julials, bashls, ltex, texlab, pyright, ccls, dockerls, jsonls, remark_ls' -c q
 
-/usr/bin/bash ${HOME}/.config/.osx
+/bin/bash ${HOME}/.config/.osx
 
 
