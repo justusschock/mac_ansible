@@ -19,12 +19,19 @@ fi
 
 # install oh my zsh passion theme
 if [ ! -d ${HOME}/.oh-my-zsh/custom/themes/passion-theme ]
-then 
+then
   # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
   git clone -c core.autocrlf=input --depth=1 https://github.com/justusschock/ohmyzsh-theme-passion.git ${HOME}/.oh-my-zsh/custom/themes/passion-theme
 fi
-# symlink theme
+
+if [ ! -d ${HOME}/.oh-my-zsh/custom/themes/spaceship-theme ]
+then
+  git clone -c core.autocrlf=input --depth=1 https://github.com/spaceship-prompt/spaceship-prompt.git ${HOME}/.oh-my-zsh/custom/themes/spaceship-theme
+fi
+
+# symlink themes
 ln -sfF ${HOME}/.oh-my-zsh/custom/themes/passion-theme/passion.zsh-theme ${HOME}/.oh-my-zsh/custom/themes/passion.zsh-theme
+ln -sfF ${HOME}/.oh-my-zsh/custom/themes/spaceship-theme/spaceship.zsh-theme ${HOME}/.oh-my-zsh/custom/themes/spaceship.zsh-theme
 
 if [ ! -d ${HOME}/ngrams ]
 then
@@ -57,4 +64,5 @@ fi
 
 /bin/bash ${HOME}/.config/.osx
 
-
+rm -rf ${HOME}/.local/share/chezmoi
+git clone git@github.com:justusschock/dotfiles.git ${HOME}/.local/share/chezmoi
